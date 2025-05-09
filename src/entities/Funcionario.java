@@ -5,14 +5,20 @@ public class Funcionario {
     private final double salarioBruto;
     private final double refeicao;
     private final double transporte;
+    private final double saude;
+    private final double comissao;
+    private final double plr;
     private final double bonus;
 
-    public Funcionario(String nome, double salarioBruto, double refeicao, double transporte, double bonus) {
+    public Funcionario(String nome, double salarioBruto, double refeicao, double transporte, double saude, double comissao, double plr, double bonus) {
         this.nome = nome;
         this.salarioBruto = salarioBruto;
         this.refeicao = refeicao;
         this.transporte = transporte;
-        this.bonus = bonus;
+        this.saude = saude;
+        this.comissao = comissao;
+        this.plr = plr;
+        this.bonus = bonusOuDissidio;
     }
 
     public double calcularINSS() {
@@ -51,7 +57,7 @@ public class Funcionario {
         double inss = calcularINSS();
         double salarioLiquidoBase = salarioBruto - inss;
         double irrf = calcularIRRF(salarioLiquidoBase);
-        double salarioLiquidoMensal = salarioBruto - inss - irrf + refeicao + transporte + bonus;
+        double salarioLiquidoMensal = salarioBruto - inss - irrf + refeicao + transporte + bonusOuDissidio;
         double ferias = salarioBruto + (salarioBruto / 3.0);
         double fgtsAnual = calcularFGTS() * 12;
 
@@ -68,7 +74,7 @@ public class Funcionario {
         double irrf = calcularIRRF(baseIR);
         double fgts = calcularFGTS();
 
-        double salarioLiquidoMensal = salarioBruto - inss - irrf + refeicao + transporte + bonus;
+        double salarioLiquidoMensal = salarioBruto - inss - irrf + refeicao + transporte + bonusOuDissidio;
         double salarioPjEquivalente = calcularSalarioPjEquivalente();
 
         System.out.println("\n--- RESUMO SALARIAL ---");
@@ -78,7 +84,7 @@ public class Funcionario {
         System.out.printf("Base de cálculo IRRF: R$ %.2f\n", baseIR);
         System.out.printf("Desconto IRRF: R$ %.2f\n", irrf);
         System.out.printf("FGTS (depósito): R$ %.2f\n", fgts);
-        System.out.printf("Benefícios: R$ %.2f\n", refeicao + transporte + bonus);
+        System.out.printf("Benefícios: R$ %.2f\n", refeicao + transporte + bonusOuDissidio);
         System.out.printf("Salário Líquido Mensal: R$ %.2f\n", salarioLiquidoMensal);
 
         System.out.println("\n--- EQUIVALÊNCIA PJ ---");
